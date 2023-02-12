@@ -16,7 +16,8 @@
 
 */
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
+import DoktorProfile from "views/examples/Profile.js";
+import HastaProfile from "views/examples/HastaProfile.js";
 import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
@@ -26,30 +27,37 @@ import Icons from "views/examples/Icons.js";
 var routes = [
   {
     path: "/index",
-    name: "Dashboard",
+    name: "Tüm Hastalar",
     icon: "ni ni-tv-2 text-primary",
     component: Index,
     layout: "/admin"
   },
   {
     path: "/icons",
-    name: "Icons",
+    name: "Favoriler",
     icon: "ni ni-planet text-blue",
     component: Icons,
     layout: "/admin"
   },
   {
     path: "/maps",
-    name: "Maps",
+    name: "Arşiv",
     icon: "ni ni-pin-3 text-orange",
     component: Maps,
     layout: "/admin"
   },
   {
-    path: "/user-profile",
-    name: "User Profile",
+    path: "/hasta-profile",
+    name: "Hasta Profil",
     icon: "ni ni-single-02 text-yellow",
-    component: Profile,
+    component: HastaProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/user-profile",
+    name: "Doktor Profil",
+    icon: "ni ni-single-02 text-yellow",
+    component: DoktorProfile,
     layout: "/admin"
   },
   {

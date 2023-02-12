@@ -25,7 +25,7 @@ const UserHeader = () => {
       <div
         className="header pb-8 pt-5 pt-lg-8 d-flex align-items-center"
         style={{
-          minHeight: "200px",
+          minHeight: "600px",
           
           backgroundSize: "cover",
           backgroundPosition: "center top"
@@ -35,7 +35,21 @@ const UserHeader = () => {
         <span className="mask bg-gradient-default opacity-8" />
         {/* Header container */}
         <Container className="d-flex align-items-center" fluid>
-          
+          <Row>
+            <Col >
+              <h1 className="display-2 text-white">Analize Başla</h1>
+              <p className="text-white mt-0 mb-3">
+                Hızlı bir şekilde hasta için bir röntgen yükle!
+              </p>
+              <Button
+                color="info"
+                href="#pablo"
+                onClick={(e) => e.preventDefault()}
+              >
+                Röntgen Yükle
+              </Button>
+            </Col>
+          </Row>
         </Container>
       </div>
     </>
