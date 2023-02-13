@@ -27,6 +27,11 @@ const Header = () => {
           <div className="header-body">
             {/* Card stats */}
             <Row>
+              <Col>
+              <h1 className="display-2 text-white mb-4">Hoşgeldin Jessi,</h1>
+              </Col>
+            </Row>
+            <Row>
               <Col lg="6" xl="3">
                 <Card className="card-stats mb-4 mb-xl-0">
                   <CardBody>

@@ -18,10 +18,12 @@
 import Index from "views/Index.js";
 import DoktorProfile from "views/examples/Profile.js";
 import HastaProfile from "views/examples/HastaProfile.js";
+import HastaRontgenResult from "views/examples/HastaRontgenResult.js";
 import Maps from "views/examples/Maps.js";
 import Register from "views/examples/Register.js";
 import Login from "views/examples/Login.js";
 import Tables from "views/examples/Tables.js";
+import Favories from "views/examples/Favories.js";
 import Icons from "views/examples/Icons.js";
 
 var routes = [
@@ -33,10 +35,10 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/icons",
+    path: "/favories",
     name: "Favoriler",
     icon: "ni ni-planet text-blue",
-    component: Icons,
+    component: Favories,
     layout: "/admin"
   },
   {
@@ -51,6 +53,13 @@ var routes = [
     name: "Hasta Profil",
     icon: "ni ni-single-02 text-yellow",
     component: HastaProfile,
+    layout: "/admin"
+  },
+  {
+    path: "/hasta-rontgen-result",
+    name: "Hasta Rontgen Sonucu",
+    icon: "ni ni-single-02 text-yellow",
+    component: HastaRontgenResult,
     layout: "/admin"
   },
   {
