@@ -32,7 +32,7 @@ import {
 import UserHeader from "components/Headers/UserHeader.js";
 import CropTooth from "components/CropTooth";
 import axios from "axios";
-const apiURL = process.env.REACT_APP_API_URL;
+const apiURL = process.env.REACT_APP_AI_API_URL;
 
 const HastaRontgenResult = () => {
 

@@ -35,9 +35,13 @@ import {
   Col
 } from "reactstrap";
 
+import {useDispatch, useSelector} from 'react-redux';
+import {logout as logoutHandle} from 'store/auth';
+
 var ps;
 
 const Sidebar = (props) => {
+  const dispatch = useDispatch();
   const [collapseOpen, setCollapseOpen] = useState();
   // verifies if routeName is the one active (in browser input)
   const activeRoute = (routeName) => {
@@ -158,7 +162,7 @@ const Sidebar = (props) => {
                 <span>Support</span>
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+              <DropdownItem href="#pablo" onClick={(e) => dispatch(logoutHandle())}>
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>

@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import { useLocation, Route, Switch, Redirect } from "react-router-dom";
+import { useLocation, useHistory, Route, Switch, Redirect } from "react-router-dom";
 // reactstrap components
 import { Container, Row, Col } from "reactstrap";
 
@@ -24,11 +24,15 @@ import { Container, Row, Col } from "reactstrap";
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import AuthFooter from "components/Footers/AuthFooter.js";
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import routes from "routes.js";
 
 const Auth = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
+  const history = useHistory();
+  const { token } = useSelector(state => state.auth)
 
   React.useEffect(() => {
     document.body.classList.add("bg-default");
@@ -43,6 +47,9 @@ const Auth = (props) => {
   }, [location]);
 
   const getRoutes = (routes) => {
+    if (token) {
+      return history.push('/admin')
+    }
     return routes.map((prop, key) => {
       if (prop.layout === "/auth") {
         return (

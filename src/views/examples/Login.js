@@ -17,6 +17,7 @@
 */
 
 // reactstrap components
+import { useState } from "react";
 import {
   Button,
   Card,
@@ -31,8 +32,49 @@ import {
   Row,
   Col
 } from "reactstrap";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux';
+import {login as loginHandle} from 'store/auth';
 
 const Login = () => {
+
+  const beApiURL = process.env.REACT_APP_BE_API_URL;
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("test1@gmail.com");
+  const [password, setPassword] = useState("adminPassword");
+
+  const validateForm = () => {
+    return email.length > 0 && password.length > 0;
+  }
+
+  async function loginUser(credentials) {
+    try {
+      await axios.post(`${beApiURL}/login`, JSON.stringify(credentials), {
+        headers: {
+          'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": "*",
+        }
+      }).then(response => {
+        dispatch(loginHandle(response.data.token))
+        history.push('/admin')
+
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const submitForm = async e => {
+    e.preventDefault();
+    const token = await loginUser({
+      email, password
+    });
+  }
+
   return (
     <>
       <Col lg="5" md="7">
@@ -94,6 +136,8 @@ const Login = () => {
                     placeholder="Email"
                     type="email"
                     autoComplete="new-email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
@@ -108,6 +152,8 @@ const Login = () => {
                     placeholder="Password"
                     type="password"
                     autoComplete="new-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </InputGroup>
               </FormGroup>
@@ -125,7 +171,7 @@ const Login = () => {
                 </label>
               </div>
               <div className="text-center">
-                <Button className="my-4" color="primary" type="button">
+                <Button className="my-4" color="primary" type="button" onClick={(e) => submitForm(e)} disabled={!validateForm()}>
                   Sign in
                 </Button>
               </div>
