@@ -34,7 +34,12 @@ import {
   Media
 } from "reactstrap";
 
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from 'store/auth';
+
 const AdminNavbar = (props) => {
+  const dispatch = useDispatch();
+  const { userData } = useSelector(state => state.auth)
   return (
     <>
       <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
@@ -69,13 +74,13 @@ const AdminNavbar = (props) => {
                   </span>
                   <Media className="ml-2 d-none d-lg-block">
                     <span className="mb-0 text-sm font-weight-bold">
-                      Hekim Adı
+                      {userData.firstName}
                     </span>
                   </Media>
                 </Media>
               </DropdownToggle>
               <DropdownMenu className="dropdown-menu-arrow" right>
-               
+
                 <DropdownItem to="/admin/user-profile" tag={Link}>
                   <i className="ni ni-single-02" />
                   <span>Hesabım</span>
@@ -93,7 +98,7 @@ const AdminNavbar = (props) => {
                   <span>Destek</span>
                 </DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem href="#pablo" onClick={(e) => e.preventDefault()}>
+                <DropdownItem href="" onClick={(e) => dispatch(logout())}>
                   <i className="ni ni-user-run" />
                   <span>Çıkış Yap</span>
                 </DropdownItem>

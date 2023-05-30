@@ -36,7 +36,7 @@ import {
 } from "reactstrap";
 
 import {useDispatch, useSelector} from 'react-redux';
-import {logout as logoutHandle} from 'store/auth';
+import {logout} from 'store/auth';
 
 var ps;
 
@@ -59,17 +59,19 @@ const Sidebar = (props) => {
   const createLinks = (routes) => {
     return routes.map((prop, key) => {
       return (
+        prop.display && (
         <NavItem key={key}>
-          <NavLink
-            to={prop.layout + prop.path}
-            tag={NavLinkRRD}
-            onClick={closeCollapse}
-            activeClassName="active"
-          >
-            <i className={prop.icon} />
-            {prop.name}
-          </NavLink>
-        </NavItem>
+        <NavLink
+          to={prop.layout + prop.path}
+          tag={NavLinkRRD}
+          onClick={closeCollapse}
+          activeClassName="active"
+        >
+          <i className={prop.icon} />
+          {prop.name}
+        </NavLink>
+      </NavItem>
+       )
       );
     });
   };
@@ -162,9 +164,9 @@ const Sidebar = (props) => {
                 <span>Support</span>
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem href="#pablo" onClick={(e) => dispatch(logoutHandle())}>
+              <DropdownItem href="" onClick={(e) => dispatch(logout())}>
                 <i className="ni ni-user-run" />
-                <span>Logout</span>
+                <span>Çıkış Yap</span>
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>

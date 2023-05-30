@@ -34,8 +34,8 @@ import {
 } from "reactstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {useDispatch, useSelector} from 'react-redux';
-import {login as loginHandle} from 'store/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, authUser } from 'store/auth';
 
 const Login = () => {
 
@@ -58,9 +58,19 @@ const Login = () => {
           'Content-Type': 'application/json',
           "Access-Control-Allow-Origin": "*",
         }
-      }).then(response => {
-        dispatch(loginHandle(response.data.token))
-        history.push('/admin')
+      }).then(loginResponse => {
+
+        axios.get(`${beApiURL}/me`, {
+          headers: {
+            "Authorization": `Bearer ${loginResponse.data.token}`,
+            'Content-Type': 'application/json',
+            "Access-Control-Allow-Origin": "*",
+          }
+        }).then(response => {
+          dispatch(login(loginResponse.data.token))
+          dispatch(authUser(response.data))
+          history.push('/admin')
+        });
 
       });
     } catch (error) {
@@ -79,11 +89,11 @@ const Login = () => {
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
-          <CardHeader className="bg-transparent pb-5">
+          <CardHeader className="bg-transparent">
             <div className="text-muted text-center mt-2 mb-3">
-              <small>Sign in with</small>
+              Giriş Yap
             </div>
-            <div className="btn-wrapper text-center">
+            <div className="btn-wrapper text-center d-none">
               <Button
                 className="btn-neutral btn-icon"
                 color="default"
@@ -121,7 +131,7 @@ const Login = () => {
             </div>
           </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
-            <div className="text-center text-muted mb-4">
+            <div className="text-center text-muted mb-4 d-none">
               <small>Or sign in with credentials</small>
             </div>
             <Form role="form">
@@ -149,7 +159,7 @@ const Login = () => {
                     </InputGroupText>
                   </InputGroupAddon>
                   <Input
-                    placeholder="Password"
+                    placeholder="Parola"
                     type="password"
                     autoComplete="new-password"
                     value={password}
@@ -167,12 +177,12 @@ const Login = () => {
                   className="custom-control-label"
                   htmlFor=" customCheckLogin"
                 >
-                  <span className="text-muted">Remember me</span>
+                  <span className="text-muted">Beni Hatırla</span>
                 </label>
               </div>
               <div className="text-center">
                 <Button className="my-4" color="primary" type="button" onClick={(e) => submitForm(e)} disabled={!validateForm()}>
-                  Sign in
+                  Devam Et
                 </Button>
               </div>
             </Form>
@@ -185,10 +195,10 @@ const Login = () => {
               href="#pablo"
               onClick={(e) => e.preventDefault()}
             >
-              <small>Forgot password?</small>
+              <small>Şifremi Unuttum?</small>
             </a>
           </Col>
-          <Col className="text-right" xs="6">
+          <Col className="text-right d-none" xs="6">
             <a
               className="text-light"
               href="#pablo"

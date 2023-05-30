@@ -18,8 +18,10 @@
 
 // reactstrap components
 import { Card, CardBody, CardTitle, Container, Row, Col } from "reactstrap";
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = () => {
+  const { userData } = useSelector(state => state.auth)
   return (
     <>
       <div className="header bg-gradient-info pb-8 pt-5 pt-md-8">
@@ -28,7 +30,7 @@ const Header = () => {
             {/* Card stats */}
             <Row>
               <Col>
-              <h1 className="display-2 text-white mb-4">Hoşgeldin Jessi,</h1>
+                <h1 className="display-2 text-white mb-4">Hoşgeldin {userData.firstName},</h1>
               </Col>
             </Row>
             <Row>
