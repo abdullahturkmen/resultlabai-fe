@@ -17,7 +17,7 @@
 */
 import toothImg from "./../../assets/img/tooth.png";
 import eyeImg from "./../../assets/img/eye.png";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 // reactstrap components
 import {
   Button,
@@ -30,13 +30,10 @@ import {
 } from "reactstrap";
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
-import CropTooth from "components/CropTooth";
 import axios from "axios";
 const apiURL = process.env.REACT_APP_AI_API_URL;
 
 const Profile = () => {
-
-
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileSize, setSelectedFileSize] = useState([]);
@@ -48,8 +45,9 @@ const Profile = () => {
 
   useEffect(() => {
 
-    if(selectedImg?.length > 0){
-        localStorage.setItem('xray-img', JSON.stringify(selectedImg))
+    if (selectedImg?.length > 0) {
+      console.log("selectedImg : ", selectedImg)
+      localStorage.setItem('xray-img', JSON.stringify(selectedImg))
     }
 
   }, [selectedImg]);
@@ -58,8 +56,9 @@ const Profile = () => {
 
   useEffect(() => {
 
-    if(xrayDetail?.length > 0){
-        localStorage.setItem('xray-detail', JSON.stringify(xrayDetail))
+    if (xrayDetail?.length > 0) {
+      console.log("xrayDetail : ", xrayDetail)
+      localStorage.setItem('xray-detail', JSON.stringify(xrayDetail))
     }
 
   }, [xrayDetail]);
@@ -69,50 +68,51 @@ const Profile = () => {
 
 
   const handleSubmit = async (event) => {
-      setIsLoading(true)
-      event.preventDefault()
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      try {
-          await axios({
-              method: "post",
-              url: `${apiURL}`,
-              data: formData,
-              headers: {
-                  "accept": "application/json",
-                  "Content-Type": "multipart/form-data"
-              },
-              proxy: false
-          }).then(response => {
-              console.log("datalar", response.data.result);
-              setXrayDetail(response.data.result);
-              setIsChecked(true);
-              setIsLoading(false);
-          });
-      } catch (error) {
-          console.log(error)
-      }
+    setIsLoading(true)
+    event.preventDefault()
+    const formData = new FormData();
+    formData.append("file", selectedFile);
+    try {
+      await axios({
+        method: "post",
+        url: `${apiURL}`,
+        data: formData,
+        headers: {
+          "accept": "application/json",
+          "Content-Type": "multipart/form-data",
+          "Access-Control-Allow-Origin": "*",
+        },
+        proxy: false
+      }).then(response => {
+        console.log("datalar", response.data.result);
+        setXrayDetail(response.data.result);
+        setIsChecked(true);
+        setIsLoading(false);
+      });
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 
   const handleFileSelect = (event) => {
-      setXrayDetail([])
-      setIsChecked(false)
-      setSelectedFile(event.target.files[0])
-      setSelectedImg(URL.createObjectURL(event.target.files[0]));
+    setXrayDetail([])
+    setIsChecked(false)
+    setSelectedFile(event.target.files[0])
+    setSelectedImg(URL.createObjectURL(event.target.files[0]));
 
 
-      var reader = new FileReader();
-      reader.readAsDataURL(event.target.files[0]);
+    var reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
 
 
-      reader.onload = function (e) {
-          var image = new Image();
-          image.src = e.target.result;
-          image.onload = function () {
-              setSelectedFileSize({'width': this.width, 'height': this.height})
-          };
-      }
+    reader.onload = function (e) {
+      var image = new Image();
+      image.src = e.target.result;
+      image.onload = function () {
+        setSelectedFileSize({ 'width': this.width, 'height': this.height })
+      };
+    }
 
   }
 
@@ -217,7 +217,7 @@ const Profile = () => {
                   <Col xs="8">
                     <h3 className="mb-0">Röntgen</h3>
                   </Col>
-                
+
                 </Row>
               </CardHeader>
               <CardBody>
@@ -233,30 +233,30 @@ const Profile = () => {
 
 
 
-              <div className="">
+                <div className="">
 
 
-<form onSubmit={handleSubmit}>
-    <div className="input-group my-3">
-        <input type="file" className="form-control" id="inputGroupFile02"
-            onChange={handleFileSelect}/>
-        <button className="input-group-text" htmlFor="inputGroupFile02" type="submit">check</button>
-    </div>
-</form>
+                  <form onSubmit={handleSubmit}>
+                    <div className="input-group my-3">
+                      <input type="file" className="form-control" id="inputGroupFile02"
+                        onChange={handleFileSelect} />
+                      <button className="input-group-text" htmlFor="inputGroupFile02" type="submit">check</button>
+                    </div>
+                  </form>
 
-</div>
+                </div>
 
-{
-                                    (xrayDetail.length == 0 && selectedImg && isChecked) && (
-                                        <div className="alert alert-danger">Mükemmel hiçbirşey yok :)</div>
-                                    )
-                                }
+                {
+                  (xrayDetail.length == 0 && selectedImg && isChecked) && (
+                    <div className="alert alert-danger">Mükemmel hiçbirşey yok :)</div>
+                  )
+                }
 
-{
-isLoading && (
-    <div className="alert alert-success">geliyorrrr</div>
-)
-} 
+                {
+                  isLoading && (
+                    <div className="alert alert-success">geliyorrrr</div>
+                  )
+                }
 
               </CardBody>
             </Card>
@@ -267,13 +267,13 @@ isLoading && (
                   <Col xs="8">
                     <h3 className="mb-0">Geçmiş Röntgenler</h3>
                   </Col>
-                
+
                 </Row>
               </CardHeader>
               <CardBody>
-                
-                
-....
+
+
+                ....
               </CardBody>
             </Card>
           </Col>

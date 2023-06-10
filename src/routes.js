@@ -67,22 +67,22 @@ var routes = [
     layout: "/admin",
     display: true
   },
-  {
-    path: "/user-profile",
-    name: "Doktor Profil",
-    icon: "ni ni-single-02 text-yellow",
-    component: DoktorProfile,
-    layout: "/admin",
-    display: true
-  },
-  {
-    path: "/tables",
-    name: "Tables",
-    icon: "ni ni-bullet-list-67 text-red",
-    component: Tables,
-    layout: "/admin",
-    display: true
-  },
+  // {
+  //   path: "/user-profile",
+  //   name: "Doktor Profil",
+  //   icon: "ni ni-single-02 text-yellow",
+  //   component: DoktorProfile,
+  //   layout: "/admin",
+  //   display: true
+  // },
+  // {
+  //   path: "/tables",
+  //   name: "Tables",
+  //   icon: "ni ni-bullet-list-67 text-red",
+  //   component: Tables,
+  //   layout: "/admin",
+  //   display: true
+  // },
   {
     path: "/login",
     name: "Login",

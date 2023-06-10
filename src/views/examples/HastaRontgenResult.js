@@ -17,7 +17,7 @@
 */
 import toothImg from "./../../assets/img/tooth.png";
 import eyeImg from "./../../assets/img/eye.png";
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 // reactstrap components
 import {
     Button,
@@ -31,8 +31,7 @@ import {
 // core components
 import UserHeader from "components/Headers/UserHeader.js";
 import CropTooth from "components/CropTooth";
-import axios from "axios";
-const apiURL = process.env.REACT_APP_AI_API_URL;
+
 
 const HastaRontgenResult = () => {
 
@@ -56,28 +55,31 @@ const HastaRontgenResult = () => {
     useEffect(() => {
 
         setTimeout(() => {
-        console.log("gelen img", JSON.parse(localStorage.getItem('xray-img')))
+            console.log("gelen img", JSON.parse(localStorage.getItem('xray-img')))
 
-        setSelectedImg(JSON.parse(localStorage.getItem('xray-img')))
+            setSelectedImg(JSON.parse(localStorage.getItem('xray-img')))
 
-        setXrayDetail(JSON.parse(localStorage.getItem('xray-detail')))
+            setXrayDetail(JSON.parse(localStorage.getItem('xray-detail')))
 
-        const xrayImg = document.querySelector('.xray-img');
-        
-            JSON.parse(localStorage.getItem('xray-detail')).map((e, index) => {
-                const elementLeft = e.xmin * 100 / selectedFileSize.width;
-                const elementTop = e.ymin * 100 / selectedFileSize.height;
-                const elementWidth = (e.xmax - e.xmin) * 100 / selectedFileSize.width;
-                const elementHeight = (e.ymax - e.ymin) * 100 / selectedFileSize.height;
-                const newElement = document.createElement("div");
-                newElement.classList.add('teeth-bulgu');
-                newElement.classList.add(`teeth-bulgu-${index}`);
-                newElement.style.left = `${elementLeft}%`;
-                newElement.style.top = `${elementTop}%`;
-                newElement.style.width = `${elementWidth}%`;
-                newElement.style.height = `${elementHeight}%`;
-                xrayImg.appendChild(newElement)
-            })
+            const xrayImg = document.querySelector('.xray-img');
+
+            if (!!localStorage.getItem('xray-detail')) {
+                JSON.parse(localStorage.getItem('xray-detail')).map((e, index) => {
+                    const elementLeft = e.xmin * 100 / selectedFileSize.width;
+                    const elementTop = e.ymin * 100 / selectedFileSize.height;
+                    const elementWidth = (e.xmax - e.xmin) * 100 / selectedFileSize.width;
+                    const elementHeight = (e.ymax - e.ymin) * 100 / selectedFileSize.height;
+                    const newElement = document.createElement("div");
+                    newElement.classList.add('teeth-bulgu');
+                    newElement.classList.add(`teeth-bulgu-${index}`);
+                    newElement.style.left = `${elementLeft}%`;
+                    newElement.style.top = `${elementTop}%`;
+                    newElement.style.width = `${elementWidth}%`;
+                    newElement.style.height = `${elementHeight}%`;
+                    xrayImg.appendChild(newElement)
+                })
+            }
+
         }, 1000)
 
 
@@ -116,7 +118,7 @@ const HastaRontgenResult = () => {
 
     return (
         <>
-            <UserHeader/> {/* Page content */}
+            <UserHeader /> {/* Page content */}
             <Container className="mt--7" fluid>
                 <Row>
 
@@ -146,269 +148,268 @@ const HastaRontgenResult = () => {
 
 
                                     {
-                                    xrayDetail ?. length && (
-                                        <div className="analysis">
+                                        xrayDetail?.length > 0 && (
+                                            <div className="analysis">
 
-                                            <div className="row">
-                                                <div className="col-12 col-lg-8">
-                                                    <div className="analysis-section xray-img">
-                                                        <img src={selectedImg}
-                                                            alt=""/>
+                                                <div className="row">
+                                                    <div className="col-12 col-lg-8">
+                                                        <div className="analysis-section xray-img">
+                                                            <img src={selectedImg}
+                                                                alt="" />
+                                                        </div>
+                                                        <div className="analysis-section teeth d-none">
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>18</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>17</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>16</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>15</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>14</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>13</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>12</span>
+                                                            </div>
+                                                            <div className="tooth bg-success">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>11</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>21</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>22</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>23</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>24</span>
+                                                            </div>
+                                                            <div className="tooth bg-success">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>25</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>26</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>27</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>28</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>48</span>
+                                                            </div>
+                                                            <div className="tooth bg-danger">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>47</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>46</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>45</span>
+                                                            </div>
+                                                            <div className="tooth bg-danger">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>44</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>43</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>42</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>41</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>31</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>32</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>33</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>34</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>35</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>36</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>37</span>
+                                                            </div>
+                                                            <div className="tooth">
+                                                                <img src={toothImg}
+                                                                    alt="" />
+                                                                <span>38</span>
+                                                            </div>
+                                                        </div>
+                                                        <div className="analysis-section counter">
+
+                                                            {
+                                                                toothCategories && Object.entries(toothCategories).map((e, index) => (
+                                                                    <div className={
+                                                                        `counter-btn kist ${colors[index]
+                                                                        }`
+                                                                    }
+                                                                        key={index}>
+                                                                        <div>{
+                                                                            e[0]
+                                                                        }</div>
+                                                                        <div>{
+                                                                            e[1].length
+                                                                        }</div>
+                                                                    </div>
+                                                                ))
+                                                            } </div>
                                                     </div>
-                                                    <div className="analysis-section teeth d-none">
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>18</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>17</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>16</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>15</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>14</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>13</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>12</span>
-                                                        </div>
-                                                        <div className="tooth bg-success">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>11</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>21</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>22</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>23</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>24</span>
-                                                        </div>
-                                                        <div className="tooth bg-success">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>25</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>26</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>27</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>28</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>48</span>
-                                                        </div>
-                                                        <div className="tooth bg-danger">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>47</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>46</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>45</span>
-                                                        </div>
-                                                        <div className="tooth bg-danger">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>44</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>43</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>42</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>41</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>31</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>32</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>33</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>34</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>35</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>36</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>37</span>
-                                                        </div>
-                                                        <div className="tooth">
-                                                            <img src={toothImg}
-                                                                alt=""/>
-                                                            <span>38</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="analysis-section counter">
+                                                    <div className="col-12 col-lg-4">
 
                                                         {
-                                                        toothCategories && Object.entries(toothCategories).map((e, index) => (
-                                                            <div className={
-                                                                    `counter-btn kist ${
-                                                                        colors[index]
-                                                                    }`
+                                                            xrayDetail.map((e, index) => (
+
+                                                                <div className={
+                                                                    `analysis-section details teeth-${index}`
                                                                 }
-                                                                key={index}>
-                                                                <div>{
-                                                                    e[0]
-                                                                }</div>
-                                                                <div>{
-                                                                    e[1].length
-                                                                }</div>
-                                                            </div>
-                                                        ))
-                                                    } </div>
-                                                </div>
-                                                <div className="col-12 col-lg-4">
+                                                                    key={index}>
+                                                                    <img src={eyeImg}
+                                                                        alt=""
+                                                                        className="tooth-visibility"
+                                                                        onClick={
+                                                                            () => teethSelected(index)
+                                                                        } />
+                                                                    <div className="tooth-numbers">
+                                                                        <img src={toothImg}
+                                                                            alt="" />
+                                                                        <span>{
+                                                                            index + 1
+                                                                        }</span>
 
-                                                    {
-                                                    xrayDetail.map((e, index) => (
-
-                                                        <div className={
-                                                                `analysis-section details teeth-${index}`
-                                                            }
-                                                            key={index}>
-                                                            <img src={eyeImg}
-                                                                alt=""
-                                                                className="tooth-visibility"
-                                                                onClick={
-                                                                    () => teethSelected(index)
-                                                                }/>
-                                                            <div className="tooth-numbers">
-                                                                <img src={toothImg}
-                                                                    alt=""/>
-                                                                <span>{
-                                                                    index + 1
-                                                                }</span>
-
-                                                            </div>
-                                                            <div className="tooth-info">
-                                                                <CropTooth img={selectedImg}
-                                                                    elementLeft={
-                                                                        e.xmin
-                                                                    }
-                                                                    elementTop={
-                                                                        e.ymin
-                                                                    }
-                                                                    elementWidth={
-                                                                        e.xmax - e.xmin
-                                                                    }
-                                                                    elementHeight={
-                                                                        e.ymax - e.ymin
-                                                                    }/>
+                                                                    </div>
+                                                                    <div className="tooth-info">
+                                                                        <CropTooth img={selectedImg}
+                                                                            elementLeft={
+                                                                                e.xmin
+                                                                            }
+                                                                            elementTop={
+                                                                                e.ymin
+                                                                            }
+                                                                            elementWidth={
+                                                                                e.xmax - e.xmin
+                                                                            }
+                                                                            elementHeight={
+                                                                                e.ymax - e.ymin
+                                                                            } />
 
 
-                                                                <div className="tooth-info-details">
-                                                                    <span className="text-info me-1">
-                                                                        {
-                                                                        e.name
-                                                                    }</span>
-                                                                    %{
-                                                                    Math.trunc(e.confidence * 100)
-                                                                }<br/>
-                                                                    +Bulgu ekle<br/>
-                                                                    +Tedavi planı gör
+                                                                        <div className="tooth-info-details">
+                                                                            <span className="text-info me-1">
+                                                                                {
+                                                                                    e.name
+                                                                                }</span>
+                                                                            %{
+                                                                                Math.trunc(e.confidence * 100)
+                                                                            }<br />
+                                                                            +Bulgu ekle<br />
+                                                                            +Tedavi planı gör
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </div>
 
-                                                    ))
-                                                } </div>
+                                                            ))
+                                                        } </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                }
+                                        )
+                                    }
 
 
                                     {
-                                    (xrayDetail.length == 0 && selectedImg && isChecked) && (
-                                        <div className="alert alert-danger">Mükemmel hiçbirşey yok :)</div>
-                                    )
-                                }
+                                        (xrayDetail?.length == 0 && selectedImg && isChecked) && (
+                                            <div className="alert alert-danger">Mükemmel hiçbirşey yok :)</div>
+                                        )
+                                    }
 
                                     {
-                                    isLoading && (
-                                        <div className="alert alert-success">geliyorrrr</div>
-                                    )
-                                } </div>
+                                        isLoading && (
+                                            <div className="alert alert-success">geliyorrrr</div>
+                                        )
+                                    } </div>
 
 
                                 Yorum ekleme ve listeleme alanı

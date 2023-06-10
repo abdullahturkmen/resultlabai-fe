@@ -32,14 +32,12 @@ import {
   Row,
   Col
 } from "reactstrap";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { login, authUser } from 'store/auth';
+import { request } from "variables/services";
 
 const Login = () => {
-
-  const beApiURL = process.env.REACT_APP_BE_API_URL;
 
   const history = useHistory();
   const dispatch = useDispatch();
@@ -52,30 +50,25 @@ const Login = () => {
   }
 
   async function loginUser(credentials) {
-    try {
-      await axios.post(`${beApiURL}/login`, JSON.stringify(credentials), {
-        headers: {
-          'Content-Type': 'application/json',
-          "Access-Control-Allow-Origin": "*",
-        }
-      }).then(loginResponse => {
+    await request({ method: 'post', data: credentials, url: '/login' }).then(loginResult => {
 
-        axios.get(`${beApiURL}/me`, {
-          headers: {
-            "Authorization": `Bearer ${loginResponse.data.token}`,
-            'Content-Type': 'application/json',
-            "Access-Control-Allow-Origin": "*",
-          }
-        }).then(response => {
-          dispatch(login(loginResponse.data.token))
-          dispatch(authUser(response.data))
+      request({ data: credentials, url: '/me', token: loginResult.data.token }).then(result => {
+
+
+        if (result.status === 200) {
+          dispatch(login(loginResult.data.token))
+          dispatch(authUser(result.data))
           history.push('/admin')
-        });
+        }
 
-      });
-    } catch (error) {
-      console.log(error)
-    }
+        return result
+      }).catch(error => {
+        console.log("error", error)
+      })
+
+    }).catch(error => {
+      console.log("error", error)
+    })
   }
 
   const submitForm = async e => {
