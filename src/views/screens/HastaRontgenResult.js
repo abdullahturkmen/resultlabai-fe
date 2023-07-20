@@ -55,37 +55,34 @@ const HastaRontgenResult = () => {
     useEffect(() => {
 
         setTimeout(() => {
-            console.log("gelen img", JSON.parse(localStorage.getItem('xray-img')))
-
             setSelectedImg(JSON.parse(localStorage.getItem('xray-img')))
-
             setXrayDetail(JSON.parse(localStorage.getItem('xray-detail')))
-
-            const xrayImg = document.querySelector('.xray-img');
-
-            if (!!localStorage.getItem('xray-detail')) {
-                JSON.parse(localStorage.getItem('xray-detail')).map((e, index) => {
-                    const elementLeft = e.xmin * 100 / selectedFileSize.width;
-                    const elementTop = e.ymin * 100 / selectedFileSize.height;
-                    const elementWidth = (e.xmax - e.xmin) * 100 / selectedFileSize.width;
-                    const elementHeight = (e.ymax - e.ymin) * 100 / selectedFileSize.height;
-                    const newElement = document.createElement("div");
-                    newElement.classList.add('teeth-bulgu');
-                    newElement.classList.add(`teeth-bulgu-${index}`);
-                    newElement.style.left = `${elementLeft}%`;
-                    newElement.style.top = `${elementTop}%`;
-                    newElement.style.width = `${elementWidth}%`;
-                    newElement.style.height = `${elementHeight}%`;
-                    xrayImg.appendChild(newElement)
-                })
+          
+               
+                if (!!localStorage.getItem('xray-detail')) {
+                    const xrayImg = document.querySelector('.xray-img');
+                    console.log("xrayImg : ", xrayImg)
+                    console.log("datalar : ", localStorage.getItem('xray-detail'))
+                    JSON.parse(localStorage.getItem('xray-detail')).map((e, index) => {
+                        console.log("new element : ", e)
+                        const elementLeft = e.xmin * 100 / selectedFileSize.width;
+                        const elementTop = e.ymin * 100 / selectedFileSize.height;
+                        const elementWidth = (e.xmax - e.xmin) * 100 / selectedFileSize.width;
+                        const elementHeight = (e.ymax - e.ymin) * 100 / selectedFileSize.height;
+                        const newElement = document.createElement("div");
+                        newElement.classList.add('teeth-bulgu');
+                        newElement.classList.add(`teeth-bulgu-${index}`);
+                        newElement.style.left = `${elementLeft}%`;
+                        newElement.style.top = `${elementTop}%`;
+                        newElement.style.width = `${elementWidth}%`;
+                        newElement.style.height = `${elementHeight}%`;
+                        
+                        xrayImg.appendChild(newElement)
+                    })
+                
             }
-
         }, 1000)
-
-
         setIsLoading(false)
-
-
     }, [localStorage]);
 
 
@@ -101,15 +98,25 @@ const HastaRontgenResult = () => {
     }
 
 
-    const teethSelected = (num) => {
+    const teethSelected = (numx) => {
 
-        if (document.querySelector(`.teeth-${num}`).classList.contains('selected')) {
+        console.log("bulgu : ", document.querySelector(`.teeth-bulgu-${numx}`))
+        console.log("diş : ", document.querySelector(`.teeth-${numx}`))
 
-            document.querySelector(`.teeth-${num}`).classList.remove('selected')
-            document.querySelector(`.teeth-bulgu-${num}`).classList.remove('selected')
+        if (document.querySelector(`.teeth-${numx}`).classList.contains('selected')) {
+            console.log("if içi")
+            document.querySelector(`.teeth-${numx}`).classList.remove('selected')
+            setTimeout(() => {
+                document.querySelector(`.teeth-bulgu-${numx}`).classList.remove('selected')
+            }, 1000);
+
         } else {
-            document.querySelector(`.teeth-${num}`).classList.add('selected')
-            document.querySelector(`.teeth-bulgu-${num}`).classList.add('selected')
+            console.log("else içi")
+            document.querySelector(`.teeth-${numx}`).classList.add('selected')
+            setTimeout(() => {
+                document.querySelector(`.teeth-bulgu-${numx}`).classList.add('selected')
+            }, 1000);
+
         }
 
 
@@ -318,8 +325,10 @@ const HastaRontgenResult = () => {
                                                                     alt="" />
                                                                 <span>38</span>
                                                             </div>
-                                                        </div>
+                                                        </div> <pre>{toothCategories}</pre>
                                                         <div className="analysis-section counter">
+
+                                                           
 
                                                             {
                                                                 toothCategories && Object.entries(toothCategories).map((e, index) => (
@@ -341,7 +350,7 @@ const HastaRontgenResult = () => {
                                                     <div className="col-12 col-lg-4">
 
                                                         {
-                                                            xrayDetail.map((e, index) => (
+                                                            xrayDetail?.map((e, index) => (
 
                                                                 <div className={
                                                                     `analysis-section details teeth-${index}`
@@ -359,7 +368,6 @@ const HastaRontgenResult = () => {
                                                                         <span>{
                                                                             index + 1
                                                                         }</span>
-
                                                                     </div>
                                                                     <div className="tooth-info">
                                                                         <CropTooth img={selectedImg}

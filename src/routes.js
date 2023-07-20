@@ -16,15 +16,17 @@
 
 */
 import Index from "views/Index.js";
-import DoktorProfile from "views/examples/Profile.js";
-import HastaProfile from "views/examples/HastaProfile.js";
-import HastaRontgenResult from "views/examples/HastaRontgenResult.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
-import Favories from "views/examples/Favories.js";
-import Icons from "views/examples/Icons.js";
+import DoktorProfile from "views/screens/Profile.js";
+import HastaProfile from "views/screens/HastaProfile.js";
+import HastaRontgenResult from "views/screens/HastaRontgenResult.js";
+import Maps from "views/screens/Maps.js";
+import Register from "views/screens/Register.js";
+import Login from "views/screens/Login.js";
+import Tables from "views/screens/Tables.js";
+import Favories from "views/screens/Favories.js";
+import Icons from "views/screens/Icons.js";
+import Managers from "views/screens/Managers.js";
+import Organizations from "views/screens/Organizations.js";
 
 var routes = [
   {
@@ -98,6 +100,22 @@ var routes = [
     component: Register,
     layout: "/auth",
     display: false
-  }
+  },
+  {
+    path: "/managers",
+    name: "Menajerler",
+    icon: "ni ni-tv-2 text-primary",
+    component: Managers,
+    layout: "/admin",
+    display: true
+  },
+  {
+    path: "/organizations",
+    name: "Organizasyonlar",
+    icon: "ni ni-tv-2 text-primary",
+    component: Organizations,
+    layout: "/admin",
+    display: true
+  },
 ];
 export default routes;
